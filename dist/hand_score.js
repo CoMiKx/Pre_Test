@@ -41,7 +41,7 @@ function getHandScore(input) {
     // console.log(suitScoresArray);
     const uniqueArrays = new Set(suitScoresArray.map(arr => arr.toString()));
     const difArrays = Array.from(uniqueArrays);
-    console.log(uniqueArrays, uniqueArrays.size === 2 && suitScoresArray.length === 4);
+    // console.log(uniqueArrays, uniqueArrays.size === 2 && suitScoresArray.length === 4);
     return uniqueArrays.size === 2 && suitScoresArray.length === 4 ?
         (difArrays[0] === '11' || difArrays[1] === '11') ? maxSuitScore = 35 : maxSuitScore = 32.5 : maxSuitScore;
 }
