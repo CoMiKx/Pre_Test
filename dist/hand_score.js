@@ -1,48 +1,50 @@
 "use strict";
-const handScorer = {
-    calculateScore(hand) {
-        const suits = {
-            'H': [],
-            'C': [],
-            'D': [],
-            'S': []
-        };
-        const ranks = {
-            '2': 2,
-            '3': 3,
-            '4': 4,
-            '5': 5,
-            '6': 6,
-            '7': 7,
-            '8': 8,
-            '9': 9,
-            '10': 10,
-            'J': 10,
-            'Q': 10,
-            'K': 10,
-            'A': 11
-        };
-        for (const card of hand) {
-            const rank = card.slice(0, -1);
-            const suit = card.slice(-1);
-            suits[suit].push(ranks[rank]);
-        }
-        let maxSuitScore = 0;
-        for (const suitScores of Object.values(suits)) {
-            const suitScore = suitScores.reduce((sum, score) => sum + score, 0);
-            maxSuitScore = Math.max(maxSuitScore, suitScore);
-        }
-        if (maxSuitScore === 35) {
-            return maxSuitScore;
-        }
-        else if (maxSuitScore === 32.5) {
-            return 32.5;
-        }
-        else {
-            return maxSuitScore;
-        }
+function getHandScore(input) {
+    const suits = {
+        'H': [],
+        'C': [],
+        'D': [],
+        'S': []
+    };
+    const ranks = {
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
+        '6': 6,
+        '7': 7,
+        '8': 8,
+        '9': 9,
+        '10': 10,
+        'J': 10,
+        'Q': 10,
+        'K': 10,
+        'A': 11
+    };
+    const hand = input.split(' ');
+    // console.log(hand);
+    hand.forEach(card => {
+        const suit = card[0];
+        const rank = card.slice(1);
+        // console.log(suit, rank);
+        suits[suit].push(ranks[rank]);
+        // console.log(suits[suit], ranks[rank]);
+    });
+    let maxSuitScore = 0;
+    let suitScoresArray = [];
+    for (const suitScores of Object.values(suits)) {
+        // console.log(suitScores);
+        suitScoresArray.push(suitScores);
+        const suitScore = suitScores.reduce((sum, score) => sum + score, 0);
+        maxSuitScore = Math.max(maxSuitScore, suitScore);
     }
-};
-const hand = ['8S', '8C', '8D']; // Example hand
-const score = handScorer.calculateScore(hand);
+    // console.log(suitScoresArray);
+    const uniqueArrays = new Set(suitScoresArray.map(arr => arr.toString()));
+    const difArrays = Array.from(uniqueArrays);
+    console.log(uniqueArrays, uniqueArrays.size === 2 && suitScoresArray.length === 4);
+    return uniqueArrays.size === 2 && suitScoresArray.length === 4 ?
+        (difArrays[0] === '11' || difArrays[1] === '11') ? maxSuitScore = 35 : maxSuitScore = 32.5 : maxSuitScore;
+}
+// Example usage
+const score = getHandScore("S8 S10 CA");
 console.log("Hand score:", score);

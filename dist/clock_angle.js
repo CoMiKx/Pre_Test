@@ -1,6 +1,6 @@
 "use strict";
-function getClockAngle(time) {
-    const [hourStr, minuteStr] = time.split(":");
+function getClockAngle(hh_mm) {
+    const [hourStr, minuteStr] = hh_mm.split(":");
     const hour = parseInt(hourStr);
     const minute = parseInt(minuteStr);
     if (hour >= 0 && hour <= 23) {
@@ -15,6 +15,6 @@ function getClockAngle(time) {
     }
 }
 // Example usage
-const calculatedAngle = getClockAngle("09:00");
+const calculatedAngle = getClockAngle("17:30");
 console.log(getClockAngle("09:00") === 90);
 console.log(`the shorter angle between the hour and minute hands of the clock is ${calculatedAngle} degrees.`);
